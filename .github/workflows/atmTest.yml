@@ -1,0 +1,26 @@
+# This workflow will build a Java project with Gradle
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+
+name: Github Action Test
+
+on: 
+  push:
+    branches:
+      -'*'
+      - '!master'
+      - '!release'
+  
+jobs:
+  test:
+    name: Running Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up JDK 11
+      uses: actions/setup-java@1
+      with:
+        java-version: 11
+        
+    - name: Unit Test
+      run: bash ./gradle test --stacktrace
